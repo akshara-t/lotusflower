@@ -1,7 +1,9 @@
 import streamlit as st
 from PIL import Image, ImageDraw, ImageFont
-from rembg import remove
+from rembg import remove, new_session
 import io
+
+session = new_session()
 
 def draw_rotated_text(base, text, position, angle, font, fill="black"):
     # Step 1: create a transparent image to hold the text
@@ -43,7 +45,7 @@ uploaded = st.file_uploader("Upload a face image (square images only unforch)", 
 
 if uploaded and name and action:
     input_img = Image.open(uploaded)
-    face_only = remove(input_img)
+    face_only = remove(input_img, session = session)
 
     meme = generate_meme(face_only, name, action)
     st.image(meme, caption="lmao here u go", use_container_width=True)
