@@ -1,9 +1,13 @@
+from pathlib import Path
 import streamlit as st
 from PIL import Image, ImageDraw, ImageFont
 from rembg import remove, new_session
 import io
 
 session = new_session()
+
+
+font_path = Path("fonts/Tinos-Regular.ttf")
 
 def draw_rotated_text(base, text, position, angle, font, fill="black"):
     # Step 1: create a transparent image to hold the text
@@ -28,7 +32,7 @@ def generate_meme(face_img, name, action):
 
     draw = ImageDraw.Draw(base)
     try:
-        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Georgia.ttf", 60)
+        font = ImageFont.truetype(str(font_path), 60)
     except OSError:
         font = ImageFont.load_default()
 
